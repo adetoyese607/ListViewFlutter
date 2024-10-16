@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:listview/user.dart';
+// import 'package:listview/user.dart';
 
 void main() {
   runApp(const MyApp());
@@ -68,17 +68,77 @@ class _MyHomePageState extends State<MyHomePage> {
       //   ],
       // )
 // LISTVIEW.BUILDER
-      body: ListView.builder(
-          itemCount: users.length,
-          itemBuilder: (BuildContext context, int index) {
-            return  ListTile(
-              leading:const CircleAvatar(
-                backgroundImage: AssetImage('images/laptop.jpg'),
-              ),
-              title: Text(users[index].name),
-              subtitle: Text(users[index].profession),
-            );
-          }),
+      // body: ListView.builder(
+      //     itemCount: users.length,
+      //     itemBuilder: (BuildContext context, int index) {
+      //       return  ListTile(
+      //         leading:const CircleAvatar(
+      //           foregroundImage: AssetImage('images/laptop.jpg'),
+      //         ),
+      //         title: Text(users[index].name),
+      //         subtitle: Text(users[index].profession),
+      //       );
+      //     }),
+
+      // Combo of the the Two ListViw
+      // ListView. Seperated
+      // body: ListView.separated(
+      //     itemBuilder: (BuildContext context, int index) {
+      //       return newWidget(index);
+      //     },
+      //     separatorBuilder: (BuildContext context, int index) {
+      //       return (index + 2) % 3 == 0
+      //           ? ListTile(
+      //               leading: const CircleAvatar(
+      //                 backgroundColor: Colors.orange,
+      //                 child: Text(
+      //                   'A',
+      //                   style: TextStyle(
+      //                       fontSize: 20,
+      //                       fontWeight: FontWeight.bold,
+      //                       color: Colors.white),
+      //                 ),
+      //               ),
+      //               title: const Text('Advertiser'),
+      //               subtitle: const Text('Some information about add'),
+      //               trailing: Container(
+      //                 color: Colors.orange,
+      //                 alignment: Alignment.center,
+      //                 width: 30,
+      //                 height: 20,
+      //                 child: const Text(
+      //                   'Ad',
+      //                   style: TextStyle(
+      //                     fontSize: 12,
+      //                     color: Colors.white,
+      //                   ),
+      //                 ),
+      //               ),
+      //             )
+      //           : const SizedBox(width: 0, height: 0,);
+      //     },
+      //     itemCount: users.length)
+      body: ListView.custom(
+        childrenDelegate: 
+        SliverChildListDelegate([
+        newWidget('Samson', 0),
+        newWidget('Ade', 1),
+          newWidget('Faruq', 2),
+            newWidget('Ope', 3),
+              newWidget('Ander', 4),
+                newWidget('Walt', 5),
+
+      ])),
     );
   }
+}
+
+Widget newWidget(String name, int index) {
+  return Container(
+    height: 245,
+    margin:const EdgeInsets.all(8),
+    alignment: Alignment.center,
+    color: Colors.blueAccent.shade100,
+    child: Text('$name No $index'),
+  );
 }
