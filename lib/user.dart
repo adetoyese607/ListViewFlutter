@@ -14,7 +14,7 @@ List users = [
  User('Pece', 'Engr', 'images/laptop.jpg'),
  User('Hope', 'Tailor', 'images/laptop.jpg'),
  User('Favour', 'Constructor', 'images/laptop.jpg'),
- User('Blessing', 'Fire Fighter', 'images/laptop.jpg'),
+ User('Blessing', 'Fire Fighter', 'images/.jpg'),
  User('Evelyn', 'Footballer', 'images/laptop.jpg'),
  User('Grace', 'MAnager', 'images/laptop.jpg'),
  User('Ola', 'Data Anayst', 'images/laptop.jpg'),

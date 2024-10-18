@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:listview/user.dart';
 // import 'package:listview/user.dart';
 
 void main() {
@@ -68,17 +69,14 @@ class _MyHomePageState extends State<MyHomePage> {
       //   ],
       // )
 // LISTVIEW.BUILDER
-      // body: ListView.builder(
-      //     itemCount: users.length,
-      //     itemBuilder: (BuildContext context, int index) {
-      //       return  ListTile(
-      //         leading:const CircleAvatar(
-      //           foregroundImage: AssetImage('images/laptop.jpg'),
-      //         ),
-      //         title: Text(users[index].name),
-      //         subtitle: Text(users[index].profession),
-      //       );
-      //     }),
+      body: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (BuildContext context, int index) {
+            return UserTile(name: users[index].name, profession: users[index].profession, image: users[index].image ,);
+            // return UserTile(
+            //   image: users[index].image,
+            //     name: users[index].name, profession: users[index].profession);
+          }),
 
       // Combo of the the Two ListViw
       // ListView. Seperated
@@ -118,27 +116,39 @@ class _MyHomePageState extends State<MyHomePage> {
       //           : const SizedBox(width: 0, height: 0,);
       //     },
       //     itemCount: users.length)
-      body: ListView.custom(
-        childrenDelegate: 
-        SliverChildListDelegate([
-        newWidget('Samson', 0),
-        newWidget('Ade', 1),
-          newWidget('Faruq', 2),
-            newWidget('Ope', 3),
-              newWidget('Ander', 4),
-                newWidget('Walt', 5),
+      // body: ListView.custom(
+      //     childrenDelegate: SliverChildListDelegate([
+      // newWidget('Adetoyese', 0, Colors.red)
 
-      ])),
+      // ])),
     );
   }
 }
 
-Widget newWidget(String name, int index) {
-  return Container(
-    height: 245,
-    margin:const EdgeInsets.all(8),
-    alignment: Alignment.center,
-    color: Colors.blueAccent.shade100,
-    child: Text('$name No $index'),
-  );
+// Widget newWidget({String? name, int? index, Color? color}) {
+//   return Container(
+//     height: 245,
+//     margin: const EdgeInsets.all(8),
+//     alignment: Alignment.center,
+//     color: color,
+//     child: Text('$name No $index'),
+//   );
+// }
+class UserTile extends StatelessWidget {
+  const UserTile({super.key, this.name, this.profession, this.image});
+  final String? name;
+  final String? profession;
+  final String? image;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        radius: 10,
+        backgroundImage: AssetImage('$image'),
+      ),
+      title: Text('$name'),
+      subtitle: Text('$profession'),
+      trailing: Icon(Icons.arrow_forward_ios),
+    );
+  }
 }
