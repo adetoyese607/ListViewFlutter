@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:listview/user.dart';
+// import 'package:listview/user.dart';
 // import 'package:listview/user.dart';
 
 void main() {
@@ -32,67 +32,64 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
+    _scrollController.addListener(() {
+      // ignore: avoid_print
+      print(_scrollController.offset);
+    });
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-        ),
-        // body: Scrollbar(
-        //   thickness: 30,
-        //   interactive: true,
-        //   child: ListView.custom(
-        //       childrenDelegate:
-        //           SliverChildBuilderDelegate((BuildContext context, int index) {
-        //     return UserDelegateTile(
-        //         name: users[index].name,
-        //         image: users[index].image,
-        //         profession: users[index].profession);
-        //   }, childCount: users.length)),
-        // ),
-        body: Column(
-          children: [
-            Container(
-              // color: Colors.black,
-              height: 50,
-              margin: const EdgeInsets.symmetric(vertical: 16),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: colors.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      scrollToTap(index);
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(right: 16),
-                      height: 50,
-                      width: 50,
-                      color: colors[index],
-                      child: Text(
-                        '${index + 1}',
-                        style: const TextStyle(fontSize: 22),
-                      ),
-                    ),
-                  );
-                },
-              ),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      // body: Scrollbar(
+      //   thickness: 30,
+      //   interactive: true,
+      //   child: ListView.custom(
+      //       childrenDelegate:
+      //           SliverChildBuilderDelegate((BuildContext context, int index) {
+      //     return UserDelegateTile(
+      //         name: users[index].name,
+      //         image: users[index].image,
+      //         profession: users[index].profession);
+      //   }, childCount: users.length)),
+      // ),
+      body: ListView.builder(
+        itemCount: 20,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            alignment: Alignment.center,
+            height: 150,
+            color: index % 2 == 0 ? Colors.blueAccent : Colors.orangeAccent,
+            child: Text(
+              'Item ${index + 1}',
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: colors.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: containerHeight,
-                    color: colors[index],
-                  );
-                },
-              ),
-            )
-          ],
-        ));
+          );
+        },
+      ),
+      // floatingActionButton: Row(
+      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //   children: [
+      //     FloatingActionButton(
+      //       onPressed: () {
+      //         _scrollController
+      //             .jumpTo(_scrollController.position.minScrollExtent);
+      //       },
+      //       child:const Icon(Icons.arrow_upward),
+      //     ),
+      //     FloatingActionButton(
+      //       onPressed: () {
+      //           _scrollController
+      //             .jumpTo(_scrollController.position.maxScrollExtent);
+      //       },
+      //       child:const Icon(Icons.arrow_downward),
+      //     )
+      //   ],
+      // )
+    );
   }
 }
 

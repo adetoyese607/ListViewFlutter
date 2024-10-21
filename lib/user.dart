@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
 // class User {
 //   final String name;
 //   final String image;
 //   final String profession;
 
-  // User(this.name, this.image, this.profession);
+// User(this.name, this.image, this.profession);
 //   User(this.name, this.profession, this.image);
 // }
 
@@ -25,21 +25,15 @@ import 'package:flutter/material.dart';
 //   User('Austin', 'Painter', 'images/laptop.jpg')
 // ];
 
-final List<Color> colors = [
-  Colors.teal,
-  Colors.red,
-  Colors.white,
-  Colors.blueGrey,
-  Colors.cyan,
-  Colors.deepPurple,
-  Colors.orange,
-  Colors.yellow,
-  Colors.indigo,
-  Colors.pink,
-];
-const containerHeight = 300.0;
-final ScrollController scrollController = ScrollController();
-
-void scrollToTap(int index) {
-  scrollController.animateTo(index*containerHeight, duration:const Duration(milliseconds: 500), curve: Curves.easeIn);
-}
+// final List<Color> colors = [
+//   Colors.teal,
+//   Colors.red,
+//   Colors.white,
+//   Colors.blueGrey,
+//   Colors.cyan,
+//   Colors.deepPurple,
+//   Colors.orange,
+//   Colors.yellow,
+//   Colors.indigo,
+//   Colors.pink,
+// ];
