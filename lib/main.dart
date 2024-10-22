@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:listview/user.dart';
+import 'package:listview/user.dart';
 // import 'package:listview/user.dart';
 
 void main() {
@@ -33,87 +33,108 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final ScrollController _scrollController = ScrollController();
+  String _scrollLocation = '';
+  int _currentScrollIndex = 0;
+
+  @override
+  void initState() {
+    _scrollController.addListener(_listenToScrollMoments);
+    _scrollController.addListener(_updateScrollIndicator);
+    super.initState();
+  }
+
+  void _updateScrollIndicator() {
+    setState(() {
+      _currentScrollIndex = _scrollController.offset ~/ containerHeight;
+    });
+  }
+
+  void _onNumberTap(int index) {
+    _scrollController.animateTo(index * containerHeight,
+        duration: Duration(seconds: 1), curve: Curves.easeIn);
+
+    setState(() {
+      _currentScrollIndex = index;
+    });
+  }
+
+  void _listenToScrollMoments() {
+    String currentLocation = '';
+    if (_scrollController.offset ==
+        _scrollController.position.minScrollExtent) {
+      currentLocation = 'Reached Start';
+    } else if (_scrollController.offset ==
+        _scrollController.position.maxScrollExtent) {
+      currentLocation = 'Reached End';
+    } else {
+      currentLocation = 'In the Middle';
+    }
+
+    setState(() {
+      _scrollLocation = currentLocation;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    _scrollController.addListener(() {
-      // ignore: avoid_print
-      print(_scrollController.offset);
-    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(_scrollLocation),
       ),
-      // body: Scrollbar(
-      //   thickness: 30,
-      //   interactive: true,
-      //   child: ListView.custom(
-      //       childrenDelegate:
-      //           SliverChildBuilderDelegate((BuildContext context, int index) {
-      //     return UserDelegateTile(
-      //         name: users[index].name,
-      //         image: users[index].image,
-      //         profession: users[index].profession);
-      //   }, childCount: users.length)),
-      // ),
-      body: ListView.builder(
-        itemCount: 20,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            alignment: Alignment.center,
-            height: 150,
-            color: index % 2 == 0 ? Colors.blueAccent : Colors.orangeAccent,
-            child: Text(
-              'Item ${index + 1}',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 90,
+            width: double.infinity,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: colors.length,
+              itemBuilder: (BuildContext context, int index) {
+                return InkWell(
+                  onTap: () {
+                    _onNumberTap(index);
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    margin: EdgeInsets.all(16),
+                    alignment: Alignment.center,
+                    decoration: index == _currentScrollIndex
+                        ? const BoxDecoration(
+                            border: Border(
+                                bottom:
+                                    BorderSide(color: Colors.grey, width: 2)))
+                        : null,
+                    child: Text(
+                      '${index + 1}',
+                      style: const TextStyle(fontSize: 30),
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+          Expanded(
+            child: ListView.builder(
+              controller: _scrollController,
+              itemCount: colors.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  alignment: Alignment.center,
+                  height: containerHeight,
+                  color: colors[index],
+                  child: Text(
+                    '${index + 1}',
+                    style: const TextStyle(
+                        fontSize: 100, fontWeight: FontWeight.bold),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
-      // floatingActionButton: Row(
-      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //   children: [
-      //     FloatingActionButton(
-      //       onPressed: () {
-      //         _scrollController
-      //             .jumpTo(_scrollController.position.minScrollExtent);
-      //       },
-      //       child:const Icon(Icons.arrow_upward),
-      //     ),
-      //     FloatingActionButton(
-      //       onPressed: () {
-      //           _scrollController
-      //             .jumpTo(_scrollController.position.maxScrollExtent);
-      //       },
-      //       child:const Icon(Icons.arrow_downward),
-      //     )
-      //   ],
-      // )
     );
   }
 }
-
-// class UserDelegateTile extends StatelessWidget {
-//   const UserDelegateTile(
-//       {super.key,
-//       required this.name,
-//       required this.image,
-//       required this.profession});
-//   final String? name;
-//   final String? image;
-//   final String? profession;
-//   @override
-//   Widget build(BuildContext context) {
-//     return  ListTile(
-//         leading: CircleAvatar(
-//           // radius: 70,
-//         backgroundColor: Colors.teal,
-//           backgroundImage: AssetImage('$image'),
-//         ),
-//         title: Text('$name'),
-//         subtitle: Text('$profession'),
-//         trailing: Icon(Icons.arrow_forward_ios),
-//       );
-    
-//   }
-// }

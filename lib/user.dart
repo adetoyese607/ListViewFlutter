@@ -1,4 +1,4 @@
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 // class User {
 //   final String name;
@@ -25,15 +25,11 @@
 //   User('Austin', 'Painter', 'images/laptop.jpg')
 // ];
 
-// final List<Color> colors = [
-//   Colors.teal,
-//   Colors.red,
-//   Colors.white,
-//   Colors.blueGrey,
-//   Colors.cyan,
-//   Colors.deepPurple,
-//   Colors.orange,
-//   Colors.yellow,
-//   Colors.indigo,
-//   Colors.pink,
-// ];
+final List<Color> colors = [
+  Colors.teal,
+  Colors.red,
+  Colors.purple,
+  Colors.blueGrey,
+  Colors.cyan,
+];
+final containerHeight = 700.0;
